@@ -34,13 +34,6 @@ task_composer_plugins:
                 inputs: [input_data]
                 outputs: [output_data]
                 format_result_as_input: false
-            DescartesMotionPlannerTask:
-              class: DescartesFMotionPlannerTaskFactory
-              config:
-                conditional: true
-                inputs: [output_data]
-                outputs: [output_data]
-                format_result_as_input: false
             DiscreteContactCheckTask:
               class: DiscreteContactCheckTaskFactory
               config:
@@ -55,8 +48,6 @@ task_composer_plugins:
                 outputs: [output_data]
           edges:
             - source: MinLengthTask
-              destinations: [AbortTask, DescartesMotionPlannerTask]
-            - source: DescartesMotionPlannerTask
               destinations: [AbortTask, DiscreteContactCheckTask]
             - source: DiscreteContactCheckTask
               destinations: [AbortTask, IterativeSplineParameterizationTask]
@@ -182,6 +173,13 @@ task_composer_plugins:
                 inputs: [input_data]
                 outputs: [output_data]
                 format_result_as_input: true
+            DescartesMotionPlannerTask:
+              class: DescartesFMotionPlannerTaskFactory
+              config:
+                conditional: true
+                inputs: [output_data]
+                outputs: [output_data]
+                format_result_as_input: false
             RasterMotionTask:
               class: RasterMotionTaskFactory
               config:
@@ -217,6 +215,8 @@ task_composer_plugins:
                     output_indexing: [output_data]
           edges:
             - source: SimpleMotionPlannerTask
+              destinations: [AbortTask, DescartesMotionPlannerTask]
+            - source: DescartesMotionPlannerTask
               destinations: [AbortTask, RasterMotionTask]
             - source: RasterMotionTask
               destinations: [AbortTask, DoneTask]
