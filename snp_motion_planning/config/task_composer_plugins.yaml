@@ -41,10 +41,18 @@ task_composer_plugins:
                 inputs: [output_data]
                 outputs: [output_data]
                 format_result_as_input: false
+            IterativeSplineParameterizationTask:
+              class: IterativeSplineParameterizationTaskFactory
+              config:
+                conditional: true
+                inputs: [output_data]
+                outputs: [output_data]
           edges:
             - source: MinLengthTask
               destinations: [AbortTask, DescartesMotionPlannerTask]
             - source: DescartesMotionPlannerTask
+              destinations: [AbortTask, IterativeSplineParameterizationTask]
+            - source: IterativeSplineParameterizationTask
               destinations: [AbortTask, DoneTask]
           terminals: [AbortTask, DoneTask]
       SNPFreespacePipeline:
@@ -74,10 +82,18 @@ task_composer_plugins:
                 inputs: [output_data]
                 outputs: [output_data]
                 format_result_as_input: false
+            IterativeSplineParameterizationTask:
+              class: IterativeSplineParameterizationTaskFactory
+              config:
+                conditional: true
+                inputs: [output_data]
+                outputs: [output_data]
           edges:
             - source: MinLengthTask
               destinations: [AbortTask, OMPLMotionPlannerTask]
             - source: OMPLMotionPlannerTask
+              destinations: [AbortTask, IterativeSplineParameterizationTask]
+            - source: IterativeSplineParameterizationTask
               destinations: [AbortTask, DoneTask]
           terminals: [AbortTask, DoneTask]
       SNPTransitionPipeline:
@@ -107,10 +123,18 @@ task_composer_plugins:
                 inputs: [output_data]
                 outputs: [output_data]
                 format_result_as_input: false
+            IterativeSplineParameterizationTask:
+              class: IterativeSplineParameterizationTaskFactory
+              config:
+                conditional: true
+                inputs: [output_data]
+                outputs: [output_data]
           edges:
             - source: MinLengthTask
               destinations: [AbortTask, OMPLMotionPlannerTask]
             - source: OMPLMotionPlannerTask
+              destinations: [AbortTask, IterativeSplineParameterizationTask]
+            - source: IterativeSplineParameterizationTask
               destinations: [AbortTask, DoneTask]
           terminals: [AbortTask, DoneTask]
       SNPPipeline:
