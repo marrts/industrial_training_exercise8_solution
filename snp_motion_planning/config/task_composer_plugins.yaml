@@ -67,8 +67,17 @@ task_composer_plugins:
                 conditional: true
                 inputs: [input_data]
                 outputs: [output_data]
+            OMPLMotionPlannerTask:
+              class: OMPLMotionPlannerTaskFactory
+              config:
+                conditional: true
+                inputs: [output_data]
+                outputs: [output_data]
+                format_result_as_input: false
           edges:
             - source: MinLengthTask
+              destinations: [AbortTask, OMPLMotionPlannerTask]
+            - source: OMPLMotionPlannerTask
               destinations: [AbortTask, DoneTask]
           terminals: [AbortTask, DoneTask]
       SNPTransitionPipeline:
@@ -91,8 +100,17 @@ task_composer_plugins:
                 conditional: true
                 inputs: [input_data]
                 outputs: [output_data]
+            OMPLMotionPlannerTask:
+              class: OMPLMotionPlannerTaskFactory
+              config:
+                conditional: true
+                inputs: [output_data]
+                outputs: [output_data]
+                format_result_as_input: false
           edges:
             - source: MinLengthTask
+              destinations: [AbortTask, OMPLMotionPlannerTask]
+            - source: OMPLMotionPlannerTask
               destinations: [AbortTask, DoneTask]
           terminals: [AbortTask, DoneTask]
       SNPPipeline:
