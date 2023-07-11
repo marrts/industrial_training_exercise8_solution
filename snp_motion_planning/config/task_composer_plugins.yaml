@@ -41,6 +41,12 @@ task_composer_plugins:
                 inputs: [output_data]
                 outputs: [output_data]
                 format_result_as_input: false
+            DiscreteContactCheckTask:
+              class: DiscreteContactCheckTaskFactory
+              config:
+                conditional: true
+                inputs: [output_data]
+                outputs: [output_data]
             IterativeSplineParameterizationTask:
               class: IterativeSplineParameterizationTaskFactory
               config:
@@ -51,6 +57,8 @@ task_composer_plugins:
             - source: MinLengthTask
               destinations: [AbortTask, DescartesMotionPlannerTask]
             - source: DescartesMotionPlannerTask
+              destinations: [AbortTask, DiscreteContactCheckTask]
+            - source: DiscreteContactCheckTask
               destinations: [AbortTask, IterativeSplineParameterizationTask]
             - source: IterativeSplineParameterizationTask
               destinations: [AbortTask, DoneTask]
@@ -82,6 +90,12 @@ task_composer_plugins:
                 inputs: [output_data]
                 outputs: [output_data]
                 format_result_as_input: false
+            DiscreteContactCheckTask:
+              class: DiscreteContactCheckTaskFactory
+              config:
+                conditional: true
+                inputs: [output_data]
+                outputs: [output_data]
             IterativeSplineParameterizationTask:
               class: IterativeSplineParameterizationTaskFactory
               config:
@@ -92,6 +106,8 @@ task_composer_plugins:
             - source: MinLengthTask
               destinations: [AbortTask, OMPLMotionPlannerTask]
             - source: OMPLMotionPlannerTask
+              destinations: [AbortTask, DiscreteContactCheckTask]
+            - source: DiscreteContactCheckTask
               destinations: [AbortTask, IterativeSplineParameterizationTask]
             - source: IterativeSplineParameterizationTask
               destinations: [AbortTask, DoneTask]
@@ -123,6 +139,12 @@ task_composer_plugins:
                 inputs: [output_data]
                 outputs: [output_data]
                 format_result_as_input: false
+            DiscreteContactCheckTask:
+              class: DiscreteContactCheckTaskFactory
+              config:
+                conditional: true
+                inputs: [output_data]
+                outputs: [output_data]
             IterativeSplineParameterizationTask:
               class: IterativeSplineParameterizationTaskFactory
               config:
@@ -133,6 +155,8 @@ task_composer_plugins:
             - source: MinLengthTask
               destinations: [AbortTask, OMPLMotionPlannerTask]
             - source: OMPLMotionPlannerTask
+              destinations: [AbortTask, DiscreteContactCheckTask]
+            - source: DiscreteContactCheckTask
               destinations: [AbortTask, IterativeSplineParameterizationTask]
             - source: IterativeSplineParameterizationTask
               destinations: [AbortTask, DoneTask]
