@@ -34,8 +34,17 @@ task_composer_plugins:
                 inputs: [input_data]
                 outputs: [output_data]
                 format_result_as_input: false
+            DescartesMotionPlannerTask:
+              class: DescartesFMotionPlannerTaskFactory
+              config:
+                conditional: true
+                inputs: [output_data]
+                outputs: [output_data]
+                format_result_as_input: false
           edges:
             - source: MinLengthTask
+              destinations: [AbortTask, DescartesMotionPlannerTask]
+            - source: DescartesMotionPlannerTask
               destinations: [AbortTask, DoneTask]
           terminals: [AbortTask, DoneTask]
       SNPFreespacePipeline:
