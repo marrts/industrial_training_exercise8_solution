@@ -33,9 +33,21 @@ tesseract_planning::OMPLDefaultPlanProfile::Ptr createOMPLProfile()
 {
   auto profile = std::make_shared<tesseract_planning::OMPLDefaultPlanProfile>();
 
-  /* =======================
-     * Fill Code: OMPL
-     * =======================*/
+  // Give OMPL 15 seconds to plan
+  profile->planning_time = 15.0;
+
+  // Clear existing planners
+  profile->planners.clear();
+
+  // Add an RRTConnect planner with a small step size for small motions
+  auto rrt_connect_small = std::make_shared<tesseract_planning::RRTConnectConfigurator>();
+  rrt_connect_small->range = 0.05;
+  profile->planners.push_back(rrt_connect_small);
+
+  // Add an RRTConnect planner with a large step size for large motions
+  auto rrt_connect_large = std::make_shared<tesseract_planning::RRTConnectConfigurator>();
+  rrt_connect_large->range = 0.25;
+  profile->planners.push_back(rrt_connect_large);
 
   return profile;
 }
