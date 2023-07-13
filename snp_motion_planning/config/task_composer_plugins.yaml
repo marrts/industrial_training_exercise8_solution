@@ -47,8 +47,14 @@ task_composer_plugins:
                 conditional: true
                 inputs: [output_data]
                 outputs: [output_data]
-            IterativeSplineParameterizationTask:
-              class: IterativeSplineParameterizationTaskFactory
+            ConstantTCPSpeedTimeParameterizationTask:
+              class: ConstantTCPSpeedTimeParameterizationTaskFactory
+              config:
+                conditional: true
+                inputs: [output_data]
+                outputs: [output_data]
+            KinematicLimitsCheckTask:
+              class: KinematicLimitsCheckTaskFactory
               config:
                 conditional: true
                 inputs: [output_data]
@@ -59,8 +65,10 @@ task_composer_plugins:
             - source: TrajOptMotionPlannerTask
               destinations: [AbortTask, DiscreteContactCheckTask]
             - source: DiscreteContactCheckTask
-              destinations: [AbortTask, IterativeSplineParameterizationTask]
-            - source: IterativeSplineParameterizationTask
+              destinations: [AbortTask, ConstantTCPSpeedTimeParameterizationTask]
+            - source: ConstantTCPSpeedTimeParameterizationTask
+              destinations: [AbortTask, KinematicLimitsCheckTask]
+            - source: KinematicLimitsCheckTask
               destinations: [AbortTask, DoneTask]
           terminals: [AbortTask, DoneTask]
       SNPFreespacePipeline:
@@ -109,6 +117,12 @@ task_composer_plugins:
                 conditional: true
                 inputs: [output_data]
                 outputs: [output_data]
+            KinematicLimitsCheckTask:
+              class: KinematicLimitsCheckTaskFactory
+              config:
+                conditional: true
+                inputs: [output_data]
+                outputs: [output_data]
           edges:
             - source: MinLengthTask
               destinations: [AbortTask, OMPLMotionPlannerTask]
@@ -119,6 +133,8 @@ task_composer_plugins:
             - source: DiscreteContactCheckTask
               destinations: [AbortTask, IterativeSplineParameterizationTask]
             - source: IterativeSplineParameterizationTask
+              destinations: [AbortTask, KinematicLimitsCheckTask]
+            - source: KinematicLimitsCheckTask
               destinations: [AbortTask, DoneTask]
           terminals: [AbortTask, DoneTask]
       SNPTransitionPipeline:
@@ -161,8 +177,14 @@ task_composer_plugins:
                 conditional: true
                 inputs: [output_data]
                 outputs: [output_data]
-            IterativeSplineParameterizationTask:
-              class: IterativeSplineParameterizationTaskFactory
+            ConstantTCPSpeedTimeParameterizationTask:
+              class: ConstantTCPSpeedTimeParameterizationTaskFactory
+              config:
+                conditional: true
+                inputs: [output_data]
+                outputs: [output_data]
+            KinematicLimitsCheckTask:
+              class: KinematicLimitsCheckTaskFactory
               config:
                 conditional: true
                 inputs: [output_data]
@@ -175,8 +197,10 @@ task_composer_plugins:
             - source: TrajOptMotionPlannerTask
               destinations: [AbortTask, DiscreteContactCheckTask]
             - source: DiscreteContactCheckTask
-              destinations: [AbortTask, IterativeSplineParameterizationTask]
-            - source: IterativeSplineParameterizationTask
+              destinations: [AbortTask, ConstantTCPSpeedTimeParameterizationTask]
+            - source: ConstantTCPSpeedTimeParameterizationTask
+              destinations: [AbortTask, KinematicLimitsCheckTask]
+            - source: KinematicLimitsCheckTask
               destinations: [AbortTask, DoneTask]
           terminals: [AbortTask, DoneTask]
       SNPPipeline:
