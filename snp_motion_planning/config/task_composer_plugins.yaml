@@ -34,6 +34,13 @@ task_composer_plugins:
                 inputs: [input_data]
                 outputs: [output_data]
                 format_result_as_input: false
+            TrajOptMotionPlannerTask:
+              class: TrajOptMotionPlannerTaskFactory
+              config:
+                conditional: true
+                inputs: [output_data]
+                outputs: [output_data]
+                format_result_as_input: false
             DiscreteContactCheckTask:
               class: DiscreteContactCheckTaskFactory
               config:
@@ -48,6 +55,8 @@ task_composer_plugins:
                 outputs: [output_data]
           edges:
             - source: MinLengthTask
+              destinations: [AbortTask, TrajOptMotionPlannerTask]
+            - source: TrajOptMotionPlannerTask
               destinations: [AbortTask, DiscreteContactCheckTask]
             - source: DiscreteContactCheckTask
               destinations: [AbortTask, IterativeSplineParameterizationTask]
@@ -81,6 +90,13 @@ task_composer_plugins:
                 inputs: [output_data]
                 outputs: [output_data]
                 format_result_as_input: false
+            TrajOptMotionPlannerTask:
+              class: TrajOptMotionPlannerTaskFactory
+              config:
+                conditional: true
+                inputs: [output_data]
+                outputs: [output_data]
+                format_result_as_input: false
             DiscreteContactCheckTask:
               class: DiscreteContactCheckTaskFactory
               config:
@@ -97,6 +113,8 @@ task_composer_plugins:
             - source: MinLengthTask
               destinations: [AbortTask, OMPLMotionPlannerTask]
             - source: OMPLMotionPlannerTask
+              destinations: [AbortTask, TrajOptMotionPlannerTask]
+            - source: TrajOptMotionPlannerTask
               destinations: [AbortTask, DiscreteContactCheckTask]
             - source: DiscreteContactCheckTask
               destinations: [AbortTask, IterativeSplineParameterizationTask]
@@ -130,6 +148,13 @@ task_composer_plugins:
                 inputs: [output_data]
                 outputs: [output_data]
                 format_result_as_input: false
+            TrajOptMotionPlannerTask:
+              class: TrajOptMotionPlannerTaskFactory
+              config:
+                conditional: true
+                inputs: [output_data]
+                outputs: [output_data]
+                format_result_as_input: false
             DiscreteContactCheckTask:
               class: DiscreteContactCheckTaskFactory
               config:
@@ -146,6 +171,8 @@ task_composer_plugins:
             - source: MinLengthTask
               destinations: [AbortTask, OMPLMotionPlannerTask]
             - source: OMPLMotionPlannerTask
+              destinations: [AbortTask, TrajOptMotionPlannerTask]
+            - source: TrajOptMotionPlannerTask
               destinations: [AbortTask, DiscreteContactCheckTask]
             - source: DiscreteContactCheckTask
               destinations: [AbortTask, IterativeSplineParameterizationTask]

@@ -56,9 +56,8 @@ std::shared_ptr<tesseract_planning::TrajOptPlanProfile> createTrajOptToolZFreePl
 {
   auto profile = std::make_shared<tesseract_planning::TrajOptDefaultPlanProfile>();
 
-  /* =======================
-     * Fill Code: TRAJOPT PLAN
-     * =======================*/
+  profile->cartesian_coeff = Eigen::VectorXd::Constant(6, 1, 5.0);
+  profile->cartesian_coeff(5) = 0.0;
 
   return profile;
 }
@@ -67,9 +66,18 @@ std::shared_ptr<tesseract_planning::TrajOptDefaultCompositeProfile> createTrajOp
 {
   auto profile = std::make_shared<tesseract_planning::TrajOptDefaultCompositeProfile>();
 
-  /* =======================
-     * Fill Code: TRAJOPT COMPOSITE
-     * =======================*/
+  profile->smooth_velocities = true;
+  profile->velocity_coeff = Eigen::VectorXd::Constant(6, 1, 10.0);
+  profile->acceleration_coeff = Eigen::VectorXd::Constant(6, 1, 25.0);
+  profile->jerk_coeff = Eigen::VectorXd::Constant(6, 1, 50.0);
+
+  profile->collision_cost_config.enabled = true;
+  profile->collision_cost_config.type = trajopt::CollisionEvaluatorType::DISCRETE_CONTINUOUS;
+  profile->collision_cost_config.safety_margin = 0.010;
+  profile->collision_cost_config.safety_margin_buffer = 0.010;
+  profile->collision_cost_config.coeff = 10.0;
+
+  profile->collision_constraint_config.enabled = false;
 
   return profile;
 }
