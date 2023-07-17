@@ -247,7 +247,7 @@ task_composer_plugins:
                 conditional: true
                 inputs: [output_data]
                 outputs: [output_data]
-                format_result_as_input: false
+                format_result_as_input: true
             RasterMotionTask:
               class: RasterMotionTaskFactory
               config:
